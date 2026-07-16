@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://csastral0001"]
+
+[ext_resource type="Script" path="res://Scripts/CutsceneAstralBoss.gd" id="99_cutscript"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cut"]
+sky_top_color = Color(0.02, 0.02, 0.05, 1)
+sky_horizon_color = Color(0.05, 0.05, 0.1, 1)
+sky_curve = 0.05
+ground_bottom_color = Color(0.01, 0.01, 0.02, 1)
+ground_horizon_color = Color(0.03, 0.03, 0.06, 1)
+
+[sub_resource type="Sky" id="Sky_cut"]
+sky_material = SubResource("ProceduralSkyMaterial_cut")
+
+[sub_resource type="Environment" id="Environment_cut"]
+background_mode = 2
+sky = SubResource("Sky_cut")
+ambient_light_source = 2
+ambient_light_color = Color(0.3, 0.3, 0.4, 1)
+ambient_light_energy = 0.6
+glow_enabled = true
+glow_intensity = 0.6
+glow_bloom = 0.15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_subtitle"]
+bg_color = Color(0.0, 0.0, 0.0, 0.72)
+border_width_left = 0
+border_width_top = 2
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color(0.7, 0.6, 0.2, 0.8)
+
+[node name="CinematicCutscene" type="Node3D"]
+script = ExtResource("99_cutscript")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cut")
+
+[node name="AmbientLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.35, 0.358, 0, 0.716, 0.698, -0.5, -0.605, 0.620, 0, 10, 0)
+light_color = Color(0.8, 0.75, 0.65, 1)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="FillLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 2)
+light_color = Color(0.3, 0.35, 0.5, 1)
+light_energy = 1.5
+omni_range = 20.0
+
+[node name="RimLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -4)
+light_color = Color(0.5, 0.45, 0.7, 1)
+light_energy = 2.0
+omni_range = 15.0
+
+[node name="CinematicCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.98, 0.17, 0, -0.17, 0.98, 0, 1.6, 4)
+fov = 52.0
+
+[node name="CharacterRoot" type="Node3D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="FadeRect" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+mouse_filter = 2
+
+[node name="SubtitleBar" type="PanelContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_subtitle")
+
+[node name="VBox" type="VBoxContainer" parent="UI/SubtitleBar"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SpeakerLabel" type="Label" parent="UI/SubtitleBar/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1.0, 0.85, 0.25, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 14
+text = ""
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="UI/SubtitleBar/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.96, 0.96, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 3
+text = ""
+horizontal_alignment = 1

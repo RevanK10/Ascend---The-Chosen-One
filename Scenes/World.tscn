@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://1a86k88fxp54"]
+
+[ext_resource type="PackedScene" uid="uid://bfx8hj1iamt3h" path="res://Scenes/Player.tscn" id="1_j0p05"]
+[ext_resource type="PackedScene" uid="uid://njsfggivov2r" path="res://Scenes/EnemySpawner.tscn" id="3_5nsto"]
+[ext_resource type="Script" uid="uid://dikoxucxtwkme" path="res://Scripts/LevelManager.gd" id="4_p70al"]
+[ext_resource type="PackedScene" uid="uid://vdbfg5sdu4pc" path="res://Scenes/HUD.tscn" id="5_45d1s"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gjpho"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j0p05"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_45d1s"]
+size = Vector2(40, 40)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_gjpho"]
+
+[node name="World" type="Node3D" unique_id=425758422]
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=619348542]
+physics_material_override = SubResource("PhysicsMaterial_gjpho")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=70506701]
+shape = SubResource("BoxShape3D_j0p05")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1076231984]
+mesh = SubResource("PlaneMesh_45d1s")
+
+[node name="Player" parent="." unique_id=404343329 instance=ExtResource("1_j0p05")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="EnemySpawner" parent="." unique_id=1992292562 instance=ExtResource("3_5nsto")]
+
+[node name="LevelManager" type="Node" parent="." unique_id=1177265085]
+script = ExtResource("4_p70al")
+
+[node name="Hud" parent="." unique_id=809260616 instance=ExtResource("5_45d1s")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=10703862]
+navigation_mesh = SubResource("NavigationMesh_gjpho")

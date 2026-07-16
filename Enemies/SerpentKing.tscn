@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d0hc3lck04ixx"]
+
+[ext_resource type="PackedScene" uid="uid://bgbrmkti6vscl" path="res://Scenes/BaseEnemy.tscn" id="1_l6cuf"]
+[ext_resource type="PackedScene" uid="uid://b20wsn27f2hjq" path="res://Assets/Models/SerpentKingBossEnemy.glb" id="2_5jrqp"]
+
+[node name="BaseEnemy" unique_id=969866553 instance=ExtResource("1_l6cuf")]
+is_boss = true
+boss_display_name = "Serpent King"
+boss_kit = "serpent"
+custom_mesh_scene = ExtResource("2_5jrqp")

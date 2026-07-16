@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bfx8hj1iamt3h"]
+
+[ext_resource type="Script" uid="uid://b4qshyfwuhmc5" path="res://Scripts/Player.gd" id="1_rpqav"]
+[ext_resource type="PackedScene" uid="uid://bxn4kot6epgyh" path="res://Scenes/ThrownSpear.tscn" id="2_kyqiw"]
+[ext_resource type="ArrayMesh" uid="uid://bwli36cjri4mu" path="res://Assets/SpearModel/SpearModel.obj" id="3_spearmesh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyqiw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vm1"]
+albedo_color = Color(0.2771578, 0.049978122, 2.4065375e-08, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vm2"]
+transparency = 1
+albedo_color = Color(0.5834499, 0.5834499, 0.5834499, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=404343329]
+script = ExtResource("1_rpqav")
+spear_scene = ExtResource("2_kyqiw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=712510696]
+shape = SubResource("CapsuleShape3D_kyqiw")
+
+[node name="Rotation_Helper" type="Node3D" parent="." unique_id=460063938]
+
+[node name="Camera3D" type="Camera3D" parent="Rotation_Helper" unique_id=116025628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+
+[node name="ProjectileSpawnPoint" type="Marker3D" parent="Rotation_Helper/Camera3D" unique_id=1805353562]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
+
+[node name="SpearViewmodel" type="Node3D" parent="Rotation_Helper/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, -0.32, -0.55)
+
+[node name="SpearMesh" type="MeshInstance3D" parent="Rotation_Helper/Camera3D/SpearViewmodel"]
+transform = Transform3D(1.6, 0, 0, 0, 0, -1.6, 0, 1.6, 0, 0, -0.05, 0.35)
+mesh = ExtResource("3_spearmesh")
+surface_material_override/0 = SubResource("StandardMaterial3D_vm1")
+surface_material_override/1 = SubResource("StandardMaterial3D_vm2")

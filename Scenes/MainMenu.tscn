@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://k5viqqr88cwc"]
+
+[ext_resource type="Script" uid="uid://dcxbswavu3k7a" path="res://Scripts/MainMenu.gd" id="1_tt5f1"]
+[ext_resource type="Texture2D" uid="uid://ddpm57biqxrvk" path="res://Assets/AIGenBgImg.png" id="2_853f1"]
+[ext_resource type="Shader" uid="uid://c61frpul18aqk" path="res://Shaders/MainMenuTitle.gdshader" id="3_8saeu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghw46"]
+shader = ExtResource("3_8saeu")
+shader_parameter/glow_color = Color(0.28051728, 0.22959694, 0.015872704, 1)
+shader_parameter/glow_radius = 5.0
+shader_parameter/glow_intensity = 3.0000001425
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xim88"]
+bg_color = Color(0.09620472, 0.09620475, 0.09620469, 1)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.7411765)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_df05h"]
+bg_color = Color(0.24313726, 0.60784316, 1, 0.7607843)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.7411765)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8saeu"]
+bg_color = Color(0, 0.654902, 0.56078434, 0.627451)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.72156864)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_koqhg"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 1)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.7411765)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8um5k"]
+bg_color = Color(0.7022334, 0.15336144, 9.62615e-08, 0.7607843)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.7411765)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghw46"]
+bg_color = Color(0, 0.654902, 0.56078434, 0.627451)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.7411765)
+shadow_size = 5
+
+[node name="MainMenu" type="Control" unique_id=471196024]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tt5f1")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1032614718]
+modulate = Color(1, 1, 1, 0.5803922)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_853f1")
+
+[node name="Title" type="Label" parent="." unique_id=271598202]
+material = SubResource("ShaderMaterial_ghw46")
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -98.0
+offset_top = 50.0
+offset_right = 98.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 50
+text = "Ascend - The Chosen One"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=448124196]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -77.0
+offset_right = 64.0
+offset_bottom = 77.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=907507937]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_xim88")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_df05h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8saeu")
+text = "Start Campaign"
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_xim88")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_df05h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8saeu")
+text = "Continue"
+
+[node name="ArcadeButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_koqhg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8um5k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ghw46")
+text = "Arcade Mode"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=2099659033]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_koqhg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8um5k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ghw46")
+text = "Quit"

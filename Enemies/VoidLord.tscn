@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d08r5s00gdqxw"]
+
+[ext_resource type="PackedScene" uid="uid://bgbrmkti6vscl" path="res://Scenes/BaseEnemy.tscn" id="1_1yykd"]
+[ext_resource type="PackedScene" uid="uid://b53ujsun75sfi" path="res://Assets/Models/VoidLordBossEnemyFinalVersion.glb" id="2_g0k4n"]
+
+[node name="BaseEnemy" unique_id=969866553 instance=ExtResource("1_1yykd")]
+is_boss = true
+boss_display_name = "Void Lord"
+boss_kit = "void"
+custom_mesh_scene = ExtResource("2_g0k4n")

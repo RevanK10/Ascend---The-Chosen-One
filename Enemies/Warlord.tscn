@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b00a8pb0e54q6"]
+
+[ext_resource type="PackedScene" uid="uid://bgbrmkti6vscl" path="res://Scenes/BaseEnemy.tscn" id="1_5063k"]
+[ext_resource type="PackedScene" uid="uid://drm1uxj1qmhl6" path="res://Assets/Models/WarlordBossEnemy.glb" id="2_lph5g"]
+
+[node name="BaseEnemy" unique_id=969866553 instance=ExtResource("1_5063k")]
+is_boss = true
+boss_display_name = "Warlord"
+boss_kit = "warlord"
+custom_mesh_scene = ExtResource("2_lph5g")

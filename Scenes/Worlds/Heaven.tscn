@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://qixxjewpmt7t"]
+
+[ext_resource type="PackedScene" uid="uid://bfx8hj1iamt3h" path="res://Scenes/Player.tscn" id="1_xule6"]
+[ext_resource type="PackedScene" uid="uid://njsfggivov2r" path="res://Scenes/EnemySpawner.tscn" id="2_np2o0"]
+[ext_resource type="PackedScene" uid="uid://vdbfg5sdu4pc" path="res://Scenes/HUD.tscn" id="3_tsd67"]
+[ext_resource type="Script" uid="uid://dikoxucxtwkme" path="res://Scripts/LevelManager.gd" id="4_wrj5c"]
+
+[ext_resource type="Script" uid="uid://propsheaven01" path="res://Scripts/WorldPropsHeaven.gd" id="5_props"]
+[ext_resource type="Script" uid="uid://navbaker000001" path="res://Scripts/WorldNavBaker.gd" id="6_navbaker"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(200, 1, 200)
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.95, 0.97, 1.0, 1)
+roughness = 0.1
+metallic = 0.4
+emission_enabled = true
+emission = Color(0.7, 0.8, 1.0, 1)
+emission_energy_multiplier = 0.15
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+size = Vector3(200, 1, 200)
+material = SubResource("Material_floor")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall"]
+size = Vector3(200, 50, 1)
+
+[sub_resource type="StandardMaterial3D" id="Material_wall"]
+albedo_color = Color(0.85, 0.90, 1.0, 1)
+roughness = 0.15
+metallic = 0.3
+emission_enabled = true
+emission = Color(0.6, 0.7, 1.0, 1)
+emission_energy_multiplier = 0.08
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall"]
+size = Vector3(200, 50, 1)
+material = SubResource("Material_wall")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_heaven"]
+sky_top_color = Color(0.52, 0.70, 0.98, 1)
+sky_horizon_color = Color(0.88, 0.92, 1.0, 1)
+sky_curve = 0.06
+ground_bottom_color = Color(0.78, 0.80, 0.86, 1)
+ground_horizon_color = Color(0.88, 0.90, 0.96, 1)
+sun_angle_max = 28.0
+sun_color = Color(1.0, 0.98, 0.90, 1)
+
+[sub_resource type="Sky" id="Sky_heaven"]
+sky_material = SubResource("ProceduralSkyMaterial_heaven")
+
+[sub_resource type="Environment" id="Environment_heaven"]
+background_mode = 2
+sky = SubResource("Sky_heaven")
+ambient_light_source = 2
+ambient_light_color = Color(0.72, 0.80, 1.0, 1)
+ambient_light_energy = 1.1
+ssao_enabled = true
+ssao_radius = 1.2
+glow_enabled = true
+glow_intensity = 0.4
+glow_bloom = 0.08
+fog_enabled = true
+fog_light_color = Color(0.82, 0.88, 1.0, 1)
+fog_density = 0.003
+fog_sky_affect = 0.25
+
+[sub_resource type="NavigationMesh" id="NavMesh_world"]
+cell/size = 0.4
+cell/height = 0.3
+agent/height = 2.0
+agent/radius = 0.5
+agent/max_climb = 0.9
+agent/max_slope = 45.0
+geometry/parsed_geometry_type = 2
+geometry/source_geometry_mode = 0
+[node name="Heaven" type="Node3D"]
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_xule6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_floor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_floor")
+
+[node name="Wall_North" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 100, 20, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_North"]
+shape = SubResource("BoxShape3D_wall")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall_North"]
+mesh = SubResource("BoxMesh_wall")
+
+[node name="Wall_East" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 100)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_East"]
+shape = SubResource("BoxShape3D_wall")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall_East"]
+mesh = SubResource("BoxMesh_wall")
+
+[node name="Wall_West" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, -100)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_West"]
+shape = SubResource("BoxShape3D_wall")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall_West"]
+mesh = SubResource("BoxMesh_wall")
+
+[node name="Wall_South" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -100, 20, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_South"]
+shape = SubResource("BoxShape3D_wall")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall_South"]
+mesh = SubResource("BoxMesh_wall")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("2_np2o0")]
+
+[node name="Hud" parent="." instance=ExtResource("3_tsd67")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 60, 0)
+light_color = Color(1.0, 0.98, 0.9, 1)
+light_energy = 2.5
+shadow_enabled = true
+
+[node name="LevelManager" type="Node" parent="." groups=["level_manager"]]
+script = ExtResource("4_wrj5c")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_heaven")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavMesh_world")
+
+[node name="NavBaker" type="Node3D" parent="."]
+script = ExtResource("6_navbaker")
+
+[node name="WorldProps" type="Node3D" parent="."]
+script = ExtResource("5_props")
+

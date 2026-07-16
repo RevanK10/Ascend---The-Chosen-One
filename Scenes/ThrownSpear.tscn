@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bxn4kot6epgyh"]
+
+[ext_resource type="Script" uid="uid://20tlawck6m8y" path="res://Scripts/ThrownSpear.gd" id="1_7rwvj"]
+[ext_resource type="ArrayMesh" uid="uid://bwli36cjri4mu" path="res://Assets/SpearModel/SpearModel.obj" id="2_71ygg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71ygg"]
+radius = 0.030761719
+height = 1.8623047
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71ygg"]
+albedo_color = Color(0.2771578, 0.049978122, 2.4065375e-08, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1lch8"]
+transparency = 1
+albedo_color = Color(0.5834499, 0.5834499, 0.5834499, 1)
+
+[node name="Area3D" type="Area3D" unique_id=114771983]
+script = ExtResource("1_7rwvj")
+speed = 25.0
+life_time = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1177579572]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -1.8568802e-09, 0.04248047)
+shape = SubResource("CapsuleShape3D_71ygg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2062247248]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -0.5429191)
+layers = 3
+mesh = ExtResource("2_71ygg")
+surface_material_override/0 = SubResource("StandardMaterial3D_71ygg")
+surface_material_override/1 = SubResource("StandardMaterial3D_1lch8")

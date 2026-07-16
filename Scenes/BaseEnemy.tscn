@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://bgbrmkti6vscl"]
+
+[ext_resource type="Script" uid="uid://cioufp8rms4m2" path="res://Scripts/BaseEnemy.gd" id="1_qu00n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.4
+height = 1.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.4, 0.5, 0.9, 1)
+metallic = 0.05
+roughness = 0.55
+
+[sub_resource type="CapsuleMesh" id="Mesh_torso"]
+material = SubResource("Mat_body")
+radius = 0.32
+height = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_skin"]
+albedo_color = Color(0.75, 0.6, 0.5, 1)
+roughness = 0.7
+
+[sub_resource type="SphereMesh" id="Mesh_head"]
+material = SubResource("Mat_skin")
+radius = 0.24
+height = 0.48
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+albedo_color = Color(1, 0.1, 0.1, 1)
+emission_enabled = true
+emission = Color(1, 0.1, 0, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="SphereMesh" id="Mesh_eye"]
+material = SubResource("Mat_eye")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CapsuleMesh" id="Mesh_arm"]
+material = SubResource("Mat_body")
+radius = 0.1
+height = 0.65
+
+[sub_resource type="CapsuleMesh" id="Mesh_leg"]
+material = SubResource("Mat_body")
+radius = 0.13
+height = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_corruption"]
+transparency = 1
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 0.55)
+
+[sub_resource type="CapsuleMesh" id="Mesh_corruption"]
+material = SubResource("Mat_corruption")
+radius = 0.55
+height = 2.3
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_attack"]
+radius = 0.58154297
+height = 2.4
+
+[node name="BaseEnemy" type="CharacterBody3D" unique_id=598346463]
+script = ExtResource("1_qu00n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=771361595]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="EnemyRoot" type="Node3D" parent="." unique_id=999711596]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnemyRoot" unique_id=2116069671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+mesh = SubResource("Mesh_torso")
+
+[node name="Head" type="Node3D" parent="EnemyRoot" unique_id=160888870]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78, 0)
+
+[node name="HeadMesh" type="MeshInstance3D" parent="EnemyRoot/Head" unique_id=165054969]
+mesh = SubResource("Mesh_head")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="EnemyRoot/Head" unique_id=1885269038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.03, 0.2)
+mesh = SubResource("Mesh_eye")
+
+[node name="EyeRight" type="MeshInstance3D" parent="EnemyRoot/Head" unique_id=498412326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.03, 0.2)
+mesh = SubResource("Mesh_eye")
+
+[node name="ArmLeft" type="Node3D" parent="EnemyRoot" unique_id=1194695913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42, 1.4, 0)
+
+[node name="ArmLeftMesh" type="MeshInstance3D" parent="EnemyRoot/ArmLeft" unique_id=650836457]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32, 0)
+mesh = SubResource("Mesh_arm")
+
+[node name="ArmRight" type="Node3D" parent="EnemyRoot" unique_id=1422262905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42, 1.4, 0)
+
+[node name="ArmRightMesh" type="MeshInstance3D" parent="EnemyRoot/ArmRight" unique_id=294450070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32, 0)
+mesh = SubResource("Mesh_arm")
+
+[node name="LegLeft" type="MeshInstance3D" parent="EnemyRoot" unique_id=2072624777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16, 0.45, 0)
+mesh = SubResource("Mesh_leg")
+
+[node name="LegRight" type="MeshInstance3D" parent="EnemyRoot" unique_id=1867496925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 0.45, 0)
+mesh = SubResource("Mesh_leg")
+
+[node name="CorruptionOverlay" type="MeshInstance3D" parent="EnemyRoot" unique_id=1288687223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+mesh = SubResource("Mesh_corruption")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=183410455]
+path_desired_distance = 0.5
+avoidance_enabled = true
+
+[node name="AttackArea" type="Area3D" parent="." unique_id=1030954030]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea" unique_id=436295984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1791859, 0)
+shape = SubResource("CapsuleShape3D_attack")
